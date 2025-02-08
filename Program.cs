@@ -25,6 +25,11 @@ options.UseSqlServer(builder
 builder.Services.AddIdentity<ApplicationUser,IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddDefaultTokenProviders();
+//configure 2fa
+builder.Services.Configure<IdentityOptions>(options =>
+{
+    options.Tokens.AuthenticatorTokenProvider = TokenOptions.DefaultAuthenticatorProvider;
+});
 
 // Configure JWT Authentication
 var key = Encoding.UTF8.GetBytes(builder.Configuration["Jwt:SecretKey"]); // Read Secret Key
